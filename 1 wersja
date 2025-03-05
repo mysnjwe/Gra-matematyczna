@@ -1,0 +1,1598 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MatematykoLandia - Nauka Mnożenia i Dzielenia</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        :root {
+            --primary: #4e54c8;
+            --secondary: #8f94fb;
+            --accent: #FF6B6B;
+            --correct: #66BB6A;
+            --wrong: #FF5252;
+            --background: #f8f9fa;
+            --text: #333;
+            --light-text: #666;
+            --white: #fff;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--white);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 8px 15px;
+            border-radius: 20px;
+        }
+
+        .nav-links a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: var(--white);
+            padding: 8rem 0 6rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            z-index: 0;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900'%3E%3Cpolygon fill='%23ffffff10' points='957 450 539 900 1396 900'/%3E%3Cpolygon fill='%23ffffff08' points='957 450 872.9 900 1396 900'/%3E%3Cpolygon fill='%23ffffff10' points='-60 900 398 662 816 900'/%3E%3Cpolygon fill='%23ffffff08' points='337 900 398 662 816 900'/%3E%3Cpolygon fill='%23ffffff10' points='1203 546 1552 900 876 900'/%3E%3Cpolygon fill='%23ffffff08' points='1203 546 1552 900 1162 900'/%3E%3Cpolygon fill='%23ffffff10' points='641 695 886 900 367 900'/%3E%3Cpolygon fill='%23ffffff08' points='587 900 641 695 886 900'/%3E%3Cpolygon fill='%23ffffff10' points='1710 900 1401 632 1096 900'/%3E%3Cpolygon fill='%23ffffff08' points='1710 900 1401 632 1365 900'/%3E%3Cpolygon fill='%23ffffff10' points='1210 900 971 687 725 900'/%3E%3Cpolygon fill='%23ffffff08' points='943 900 1210 900 971 687'/%3E%3C/svg%3E");
+            animation: move-background 30s linear infinite;
+        }
+
+        @keyframes move-background {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--accent);
+            color: var(--white);
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--white);
+            margin-left: 15px;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: "";
+            position: absolute;
+            width: 50%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            bottom: -10px;
+            left: 25%;
+            border-radius: 2px;
+        }
+
+        .section-title p {
+            color: var(--light-text);
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+
+        /* About Section */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: var(--white);
+            font-size: 2rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .feature-card p {
+            color: var(--light-text);
+            line-height: 1.6;
+        }
+
+        /* Game Section */
+        .games-container {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .game-box {
+            background-color: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .game-header {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: var(--white);
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .game-header h3 {
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        .game-content {
+            padding: 30px;
+        }
+
+        .game-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .difficulty-btn {
+            padding: 8px 15px;
+            border-radius: 20px;
+            background-color: #eee;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .difficulty-btn.active {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        .equation-container {
+            font-size: 2.5rem;
+            text-align: center;
+            margin: 30px 0;
+            min-height: 70px;
+        }
+
+        .answers-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        @media (min-width: 768px) {
+            .answers-container {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .answer-btn {
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid #eee;
+            background-color: var(--white);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .answer-btn:hover {
+            background-color: #f5f5f5;
+            transform: translateY(-3px);
+        }
+
+        .game-result {
+            text-align: center;
+            margin-top: 20px;
+            min-height: 30px;
+            font-weight: 500;
+            font-size: 1.2rem;
+        }
+
+        .correct {
+            color: var(--correct);
+        }
+
+        .wrong {
+            color: var(--wrong);
+        }
+
+        .score-container {
+            display: flex;
+            justify-content: space-around;
+            background-color: #f5f5f5;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .score-item {
+            text-align: center;
+        }
+
+        .score-title {
+            font-size: 0.9rem;
+            color: var(--light-text);
+            margin-bottom: 5px;
+        }
+
+        .score-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        /* Progress Section */
+        .progress-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .progress-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .progress-header {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: var(--white);
+            padding: 15px 20px;
+        }
+
+        .progress-header h3 {
+            margin: 0;
+            font-size: 1.3rem;
+        }
+
+        .progress-content {
+            padding: 20px;
+        }
+
+        .progress-bar-container {
+            height: 20px;
+            background-color: #eee;
+            border-radius: 10px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+
+        .progress-value {
+            text-align: right;
+            font-weight: 500;
+            color: var(--primary);
+        }
+
+        .badges-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .badge {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background-color: #f5f5f5;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .badge.unlocked {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--white);
+            box-shadow: 0 5px 15px rgba(78, 84, 200, 0.3);
+        }
+
+        .badge-icon {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .badge-name {
+            font-size: 0.7rem;
+            text-align: center;
+            position: absolute;
+            bottom: -25px;
+            width: 100%;
+        }
+
+        .badge.locked {
+            opacity: 0.5;
+        }
+
+        .badge.locked::after {
+            content: "\f023";
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.5rem;
+            color: var(--text);
+        }
+
+        /* Tips Section */
+        .tips-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .tip-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .tip-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .tip-image {
+            height: 150px;
+            background-color: #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--light-text);
+            font-size: 3rem;
+        }
+
+        .tip-content {
+            padding: 20px;
+        }
+
+        .tip-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .tip-content p {
+            color: var(--light-text);
+            line-height: 1.6;
+        }
+
+        /* Contact Section */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(78, 84, 200, 0.2);
+        }
+
+        .form-textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+
+        .footer-links li {
+            margin: 0 15px;
+        }
+
+        .footer-links a {
+            color: var(--white);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        .social-links {
+            display: flex;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 10px;
+            color: var(--white);
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: var(--primary);
+                flex-direction: column;
+                padding: 20px 0;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                margin: 10px 0;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        /* Fireworks Animation */
+        .firework {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            display: none;
+        }
+
+        .firework.active {
+            display: block;
+        }
+
+        .firework-particle {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            animation: firework-explode 1s ease-out forwards;
+        }
+
+        @keyframes firework-explode {
+            0% {
+                transform: translate(0, 0);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty));
+                opacity: 0;
+            }
+        }
+
+        /* Achievement popup */
+        .achievement-popup {
+            position: fixed;
+            bottom: -100px;
+            right: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--white);
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            transition: all 0.5s ease;
+        }
+
+        .achievement-popup.show {
+            bottom: 20px;
+        }
+
+        .achievement-icon {
+            font-size: 2rem;
+            margin-right: 15px;
+        }
+
+        .achievement-text h4 {
+            margin: 0;
+            font-size: 1.1rem;
+        }
+
+        .achievement-text p {
+            margin: 5px 0 0;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <i class="fas fa-calculator"></i>
+                    MatematykoLandia
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#start">Start</a></li>
+                    <li><a href="#about">O grze</a></li>
+                    <li><a href="#multiplication">Mnożenie</a></li>
+                    <li><a href="#division">Dzielenie</a></li>
+                    <li><a href="#progress">Postępy</a></li>
+                    <li><a href="#tips">Porady</a></li>
+                </ul>
+                <div class="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="start">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Witaj w MatematykoLandii!</h1>
+                <p>Odkryj magiczny świat liczb, gdzie nauka mnożenia i dzielenia staje się fascynującą przygodą. Rozwiązuj zadania, zdobywaj odznaki i baw się dobrze!</p>
+                <div>
+                    <a href="#multiplication" class="btn">Zacznij naukę mnożenia</a>
+                    <a href="#division" class="btn btn-outline">Spróbuj dzielenia</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>O MatematykoLandii</h2>
+                <p>Nasza gra edukacyjna pomoże Twojemu dziecku opanować tabliczkę mnożenia i dzielenia do 100 poprzez zabawę i interaktywne ćwiczenia.</p>
+            </div>
+            <div class="features">
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <h3>Nauka przez zabawę</h3>
+                    <p>Ciekawe gry i wyzwania matematyczne, które sprawią, że nauka stanie się przyjemnością, a nie obowiązkiem.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Śledzenie postępów</h3>
+                    <p>Monitoruj postępy dziecka i obserwuj, jak z dnia na dzień staje się coraz lepsze w matematyce.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-medal"></i>
+                    </div>
+                    <h3>System nagród</h3>
+                    <p>Odznaki i osiągnięcia motywują do dalszej nauki i celebrują każdy mały sukces matematyczny.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Multiplication Game Section -->
+    <section id="multiplication">
+        <div class="container">
+            <div class="section-title">
+                <h2>Nauka Mnożenia</h2>
+                <p>Ćwicz tabliczkę mnożenia w interaktywny sposób. Wybierz poziom trudności i rozwiązuj zadania, aby zdobyć punkty.</p>
+            </div>
+            <div class="games-container">
+                <div class="game-box fade-in">
+                    <div class="game-header">
+                        <h3>Tabliczka Mnożenia</h3>
+                        <button id="multiply-new-btn" class="btn">Nowe zadanie</button>
+                    </div>
+                    <div class="game-content">
+                        <div class="game-controls">
+                            <button class="difficulty-btn active" data-difficulty="easy">Łatwy</button>
+                            <button class="difficulty-btn" data-difficulty="medium">Średni</button>
+                            <button class="difficulty-btn" data-difficulty="hard">Trudny</button>
+                        </div>
+                        <div id="multiply-equation" class="equation-container">
+                            Naciśnij "Nowe zadanie", aby rozpocząć
+                        </div>
+                        <div id="multiply-answers" class="answers-container">
+                            <!-- Dynamically filled -->
+                        </div>
+                        <div id="multiply-result" class="game-result"></div>
+                        <div class="score-container">
+                            <div class="score-item">
+                                <div class="score-title">Punkty</div>
+                                <div id="multiply-points" class="score-value">0</div>
+                            </div>
+                            <div class="score-item">
+                                <div class="score-title">Poprawne</div>
+                                <div id="multiply-correct" class="score-value">0</div>
+                            </div>
+                            <div class="score-item">
+                                <div class="score-title">Błędne</div>
+                                <div id="multiply-wrong" class="score-value">0</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Division Game Section -->
+    <section id="division">
+        <div class="container">
+            <div class="section-title">
+                <h2>Nauka Dzielenia</h2>
+                <p>Ćwicz dzielenie liczb i sprawdź swoją wiedzę na różnych poziomach trudności.</p>
+            </div>
+            <div class="games-container">
+                <div class="game-box fade-in">
+                    <div class="game-header">
+                        <h3>Dzielenie Liczb</h3>
+                        <button id="divide-new-btn" class="btn">Nowe zadanie</button>
+                    </div>
+                    <div class="game-content">
+                        <div class="game-controls">
+                            <button class="difficulty-btn active" data-difficulty="easy">Łatwy</button>
+                            <button class="difficulty-btn" data-difficulty="medium">Średni</button>
+                            <button class="difficulty-btn" data-difficulty="hard">Trudny</button>
+                        </div>
+                        <div id="divide-equation" class="equation-container">
+                            Naciśnij "Nowe zadanie", aby rozpocząć
+                        </div>
+                        <div id="divide-answers" class="answers-container">
+                            <!-- Dynamically filled -->
+                        </div>
+                        <div id="divide-result" class="game-result"></div>
+                        <div class="score-container">
+                            <div class="score-item">
+                                <div class="score-title">Punkty</div>
+                                <div id="divide-points" class="score-value">0</div>
+                            </div>
+                            <div class="score-item">
+                                <div class="score-title">Poprawne</div>
+                                <div id="divide-correct" class="score-value">0</div>
+                            </div>
+                            <div class="score-item">
+                                <div class="score-title">Błędne</div>
+                                <div id="divide-wrong" class="score-value">0</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Progress Section -->
+    <section id="progress">
+        <div class="container">
+            <div class="section-title">
+                <h2>Twoje Postępy</h2>
+                <p>Śledź swoje osiągnięcia i postępy w nauce matematyki.</p>
+            </div>
+            <div class="progress-container">
+                <div class="progress-card fade-in">
+                    <div class="progress-header">
+                        <h3>Mnożenie</h3>
+                    </div>
+                    <div class="progress-content">
+                        <div class="progress-bar-container">
+                            <div id="multiply-progress-bar" class="progress-bar" style="width: 0%"></div>
+                        </div>
+                        <div id="multiply-progress-value" class="progress-value">0%</div>
+                    </div>
+                </div>
+                <div class="progress-card fade-in">
+                    <div class="progress-header">
+                        <h3>Dzielenie</h3>
+                    </div>
+                    <div class="progress-content">
+                        <div class="progress-bar-container">
+                            <div id="divide-progress-bar" class="progress-bar" style="width: 0%"></div>
+                        </div>
+                        <div id="divide-progress-value" class="progress-value">0%</div>
+                    </div>
+                </div>
+                <div class="progress-card fade-in">
+                    <div class="progress-header">
+                        <h3>Zdobyte Odznaki</h3>
+                    </div>
+                    <div class="progress-content">
+                        <div class="badges-container">
+                            <div class="badge" id="badge-beginner">
+                                <div class="badge-icon"><i class="fas fa-star"></i></div>
+                                <div class="badge-name">Początkujący</div>
+                            </div>
+                            <div class="badge locked" id="badge-bronze">
+                                <div class="badge-icon"><i class="fas fa-medal"></i></div>
+                                <div class="badge-name">Brązowa</div>
+                            </div>
+                            <div class="badge locked" id="badge-silver">
+                                <div class="badge-icon"><i class="fas fa-medal"></i></div>
+                                <div class="badge-name">Srebrna</div>
+                            </div>
+                            <div class="badge locked" id="badge-gold">
+                                <div class="badge-icon"><i class="fas fa-trophy"></i></div>
+                                <div class="badge-name">Złota</div>
+                            </div>
+                            <div class="badge locked" id="badge-master">
+                                <div class="badge-icon"><i class="fas fa-crown"></i></div>
+                                <div class="badge-name">Mistrz</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tips Section -->
+    <section id="tips">
+        <div class="container">
+            <div class="section-title">
+                <h2>Pomocne Wskazówki</h2>
+                <p>Sprawdzone triki i metody, które pomogą szybciej opanować tabliczkę mnożenia i dzielenia.</p>
+            </div>
+            <div class="tips-container">
+                <div class="tip-card fade-in">
+                    <div class="tip-image">
+                        <i class="fas fa-hand-peace"></i>
+                    </div>
+                    <div class="tip-content">
+                        <h3>Mnożenie przez 2</h3>
+                        <p>Mnożenie przez 2 to jak dodawanie tej samej liczby dwa razy! Na przykład 4 × 2 to to samo co 4 + 4 = 8. Możesz też pomyśleć o tym jako o podwojeniu liczby.</p>
+                    </div>
+                </div>
+                <div class="tip-card fade-in">
+                    <div class="tip-image">
+                        <i class="fas fa-hand-spock"></i>
+                    </div>
+                    <div class="tip-content">
+                        <h3>Mnożenie przez 5</h3>
+                        <p>Przy mnożeniu przez 5, wynik zawsze kończy się cyfrą 0 lub 5. Jeśli mnożysz liczbę parzystą przez 5, wynik kończy się zerem. Jeśli liczbę nieparzystą, wynik kończy się cyfrą 5.</p>
+                    </div>
+                </div>
+                <div class="tip-card fade-in">
+                    <div class="tip-image">
+                        <i class="fas fa-hand-peace"></i>
+                    </div>
+                    <div class="tip-content">
+                        <h3>Mnożenie przez 10</h3>
+                        <p>Mnożenie przez 10 jest proste - wystarczy dodać zero na końcu liczby! Na przykład 7 × 10 = 70, a 25 × 10 = 250.</p>
+                    </div>
+                </div>
+                <div class="tip-card fade-in">
+                    <div class="tip-image">
+                        <i class="fas fa-hand-point-up"></i>
+                    </div>
+                    <div class="tip-content">
+                        <h3>Dzielenie przez 2</h3>
+                        <p>Dzielenie przez 2 to połowa liczby. Przy liczbach parzystych to łatwe, np. 8 ÷ 2 = 4. Przy nieparzystych będzie część ułamkowa, np. 9 ÷ 2 = 4,5.</p>
+                    </div>
+                </div>
+                <div class="tip-card fade-in">
+                    <div class="tip-image">
+                        <i class="fas fa-hand-point-right"></i>
+                    </div>
+                    <div class="tip-content">
+                        <h3>Dzielenie przez 5</h3>
+                        <p>Aby dzielić przez 5, możesz najpierw pomnożyć liczbę przez 2, a następnie podzielić przez 10. Na przykład 45 ÷ 5 = (45 × 2) ÷ 10 = 90 ÷ 10 = 9.</p>
+                    </div>
+                </div>
+                <div class="tip-card fade-in">
+                    <div class="tip-image">
+                        <i class="fas fa-hand-point-down"></i>
+                    </div>
+                    <div class="tip-content">
+                        <h3>Dzielenie przez 10</h3>
+                        <p>Przy dzieleniu przez 10 wystarczy przesunąć przecinek o jedną pozycję w lewo. Na przykład 70 ÷ 10 = 7, a 250 ÷ 10 = 25.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-calculator"></i> MatematykoLandia
+                </div>
+                <p>Twoje dziecko pokocha matematykę dzięki naszej aplikacji!</p>
+                <ul class="footer-links">
+                    <li><a href="#start">Start</a></li>
+                    <li><a href="#about">O grze</a></li>
+                    <li><a href="#multiplication">Mnożenie</a></li>
+                    <li><a href="#division">Dzielenie</a></li>
+                    <li><a href="#progress">Postępy</a></li>
+                    <li><a href="#tips">Porady</a></li>
+                </ul>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                </div>
+                <div class="copyright">
+                    &copy; 2025 MatematykoLandia. Wszystkie prawa zastrzeżone.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Fireworks Container -->
+    <div class="firework" id="firework"></div>
+
+    <!-- Achievement Popup -->
+    <div class="achievement-popup" id="achievement-popup">
+        <div class="achievement-icon">
+            <i class="fas fa-award"></i>
+        </div>
+        <div class="achievement-text">
+            <h4>Nowe osiągnięcie!</h4>
+            <p id="achievement-message">Brawo! Udało Ci się!</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Navigation smooth scroll
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // Mobile menu toggle
+            const hamburger = document.querySelector('.hamburger');
+            const navLinks = document.querySelector('.nav-links');
+
+            hamburger.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                hamburger.innerHTML = navLinks.classList.contains('active') ? 
+                    '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+            });
+
+            // Fade in animations on scroll
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            const fadeInOnScroll = () => {
+                fadeElements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const elementVisible = 150;
+                    
+                    if (elementTop < window.innerHeight - elementVisible) {
+                        element.style.opacity = '1';
+                        element.style.transform = 'translateY(0)';
+                    }
+                });
+            };
+
+            // Set initial state of fade elements
+            fadeElements.forEach(element => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(20px)';
+                element.style.transition = 'all 0.8s ease';
+            });
+
+            window.addEventListener('scroll', fadeInOnScroll);
+            fadeInOnScroll(); // Run once on load
+
+            // Game state
+            const gameState = {
+                multiply: {
+                    difficulty: 'easy',
+                    correctAnswer: null,
+                    points: 0,
+                    correct: 0,
+                    wrong: 0,
+                    progress: 0
+                },
+                divide: {
+                    difficulty: 'easy',
+                    correctAnswer: null,
+                    points: 0,
+                    correct: 0,
+                    wrong: 0,
+                    progress: 0
+                },
+                badges: {
+                    beginner: true,
+                    bronze: false,
+                    silver: false,
+                    gold: false,
+                    master: false
+                }
+            };
+
+            // Set initial badge
+            document.getElementById('badge-beginner').classList.add('unlocked');
+
+            // Game State Management (without localStorage)
+            const saveGameState = () => {
+                // Instead of using localStorage, we just update the UI
+                updateProgress();
+                checkBadges();
+            };
+
+            const loadGameState = () => {
+                // Simply use the default game state
+                document.getElementById('multiply-points').textContent = gameState.multiply.points;
+                document.getElementById('multiply-correct').textContent = gameState.multiply.correct;
+                document.getElementById('multiply-wrong').textContent = gameState.multiply.wrong;
+                
+                document.getElementById('divide-points').textContent = gameState.divide.points;
+                document.getElementById('divide-correct').textContent = gameState.divide.correct;
+                document.getElementById('divide-wrong').textContent = gameState.divide.wrong;
+                
+                updateProgress();
+                
+                // Update badges
+                Object.keys(gameState.badges).forEach(badge => {
+                    if (gameState.badges[badge]) {
+                        document.getElementById(`badge-${badge}`).classList.add('unlocked');
+                        document.getElementById(`badge-${badge}`).classList.remove('locked');
+                    }
+                });
+            };
+
+            // Progress update
+            const updateProgress = () => {
+                // Calculate progress based on points (max 1000 for 100%)
+                const multiplyProgress = Math.min(100, Math.floor(gameState.multiply.points / 10));
+                const divideProgress = Math.min(100, Math.floor(gameState.divide.points / 10));
+                
+                // Update progress bars
+                document.getElementById('multiply-progress-bar').style.width = `${multiplyProgress}%`;
+                document.getElementById('multiply-progress-value').textContent = `${multiplyProgress}%`;
+                
+                document.getElementById('divide-progress-bar').style.width = `${divideProgress}%`;
+                document.getElementById('divide-progress-value').textContent = `${divideProgress}%`;
+                
+                // Store progress in game state
+                gameState.multiply.progress = multiplyProgress;
+                gameState.divide.progress = divideProgress;
+            };
+
+            // Badge system
+            const checkBadges = () => {
+                const totalPoints = gameState.multiply.points + gameState.divide.points;
+                const totalCorrect = gameState.multiply.correct + gameState.divide.correct;
+                
+                // Bronze badge - 100 points
+                if (totalPoints >= 100 && !gameState.badges.bronze) {
+                    unlockBadge('bronze', 'Zdobyłeś/aś brązową odznakę! Już 100 punktów!');
+                }
+                
+                // Silver badge - 300 points
+                if (totalPoints >= 300 && !gameState.badges.silver) {
+                    unlockBadge('silver', 'Zdobyłeś/aś srebrną odznakę! Już 300 punktów!');
+                }
+                
+                // Gold badge - 600 points
+                if (totalPoints >= 600 && !gameState.badges.gold) {
+                    unlockBadge('gold', 'Zdobyłeś/aś złotą odznakę! Już 600 punktów!');
+                }
+                
+                // Master badge - 1000 points
+                if (totalPoints >= 1000 && !gameState.badges.master) {
+                    unlockBadge('master', 'Jesteś mistrzem matematyki! 1000 punktów!');
+                    createFireworks();
+                }
+            };
+
+            // Unlock badge animation
+            const unlockBadge = (badge, message) => {
+                gameState.badges[badge] = true;
+                const badgeElement = document.getElementById(`badge-${badge}`);
+                badgeElement.classList.remove('locked');
+                badgeElement.classList.add('unlocked');
+                
+                // Show achievement popup
+                showAchievement(message);
+                
+                // Save state
+                saveGameState();
+            };
+
+            // Show achievement popup
+            const showAchievement = (message) => {
+                const popup = document.getElementById('achievement-popup');
+                document.getElementById('achievement-message').textContent = message;
+                
+                popup.classList.add('show');
+                
+                setTimeout(() => {
+                    popup.classList.remove('show');
+                }, 3000);
+            };
+
+            // Fireworks animation
+            const createFireworks = () => {
+                const fireworkContainer = document.getElementById('firework');
+                fireworkContainer.innerHTML = '';
+                fireworkContainer.classList.add('active');
+                
+                // Create particles
+                for (let i = 0; i < 50; i++) {
+                    const particle = document.createElement('div');
+                    particle.classList.add('firework-particle');
+                    
+                    // Random position and colors
+                    const x = Math.random() * window.innerWidth;
+                    const y = window.innerHeight;
+                    const tx = (Math.random() - 0.5) * 300;
+                    const ty = (Math.random() - 0.8) * 500;
+                    const colors = ['#FF5252', '#FFD740', '#64FFDA', '#448AFF', '#B388FF'];
+                    const color = colors[Math.floor(Math.random() * colors.length)];
+                    
+                    particle.style.left = `${x}px`;
+                    particle.style.top = `${y}px`;
+                    particle.style.backgroundColor = color;
+                    particle.style.setProperty('--tx', `${tx}px`);
+                    particle.style.setProperty('--ty', `${ty}px`);
+                    
+                    fireworkContainer.appendChild(particle);
+                }
+                
+                // Remove after animation completes
+                setTimeout(() => {
+                    fireworkContainer.classList.remove('active');
+                }, 1500);
+            };
+
+            // Difficulty buttons
+            document.querySelectorAll('.difficulty-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    // Get parent section (multiplication or division)
+                    const section = this.closest('section').id;
+                    const difficulty = this.dataset.difficulty;
+                    
+                    // Update active state
+                    this.parentNode.querySelectorAll('.difficulty-btn').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                    
+                    // Set difficulty in game state
+                    gameState[section].difficulty = difficulty;
+                });
+            });
+
+            // Generate random number based on difficulty
+            const getRandomNumber = (difficulty, isMultiply = true) => {
+                let max, min;
+                
+                if (isMultiply) {
+                    switch (difficulty) {
+                        case 'easy':
+                            min = 1;
+                            max = 5;
+                            break;
+                        case 'medium':
+                            min = 3;
+                            max = 8;
+                            break;
+                        case 'hard':
+                            min = 6;
+                            max = 10;
+                            break;
+                    }
+                } else { // Division
+                    switch (difficulty) {
+                        case 'easy':
+                            min = 1;
+                            max = 5;
+                            break;
+                        case 'medium':
+                            min = 3;
+                            max = 8;
+                            break;
+                        case 'hard':
+                            min = 6;
+                            max = 10;
+                            break;
+                    }
+                }
+                
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            };
+
+            // Generate new multiplication question
+            const generateMultiplicationQuestion = () => {
+                const difficulty = gameState.multiply.difficulty;
+                const num1 = getRandomNumber(difficulty, true);
+                const num2 = getRandomNumber(difficulty, true);
+                const correctAnswer = num1 * num2;
+                
+                // Store correct answer
+                gameState.multiply.correctAnswer = correctAnswer;
+                
+                // Update equation display
+                document.getElementById('multiply-equation').textContent = `${num1} × ${num2} = ?`;
+                
+                // Generate answer options (1 correct, 3 close but wrong)
+                const answerOptions = [correctAnswer];
+                
+                while (answerOptions.length < 4) {
+                    // Generate a wrong answer that's close to the correct one
+                    let wrongAnswer;
+                    const randomOffset = Math.floor(Math.random() * 5) + 1;
+                    
+                    if (Math.random() < 0.5) {
+                        wrongAnswer = correctAnswer + randomOffset;
+                    } else {
+                        wrongAnswer = Math.max(1, correctAnswer - randomOffset);
+                    }
+                    
+                    // Make sure we don't add duplicates
+                    if (!answerOptions.includes(wrongAnswer)) {
+                        answerOptions.push(wrongAnswer);
+                    }
+                }
+                
+                // Shuffle answers
+                shuffleArray(answerOptions);
+                
+                // Create answer buttons
+                const answersContainer = document.getElementById('multiply-answers');
+                answersContainer.innerHTML = '';
+                
+                answerOptions.forEach(answer => {
+                    const button = document.createElement('button');
+                    button.classList.add('answer-btn');
+                    button.textContent = answer;
+                    
+                    button.addEventListener('click', () => {
+                        checkMultiplicationAnswer(answer);
+                    });
+                    
+                    answersContainer.appendChild(button);
+                });
+                
+                // Clear previous result
+                document.getElementById('multiply-result').textContent = '';
+                document.getElementById('multiply-result').className = 'game-result';
+            };
+
+            // Generate new division question
+            const generateDivisionQuestion = () => {
+                const difficulty = gameState.divide.difficulty;
+                let num1, num2, correctAnswer;
+                
+                // Make sure we get a division that results in a whole number
+                do {
+                    num2 = getRandomNumber(difficulty, false);
+                    correctAnswer = getRandomNumber(difficulty, false);
+                    num1 = num2 * correctAnswer;
+                } while (num1 > 100); // Keep result under 100
+                
+                // Store correct answer
+                gameState.divide.correctAnswer = correctAnswer;
+                
+                // Update equation display
+                document.getElementById('divide-equation').textContent = `${num1} ÷ ${num2} = ?`;
+                
+                // Generate answer options (1 correct, 3 close but wrong)
+                const answerOptions = [correctAnswer];
+                
+                while (answerOptions.length < 4) {
+                    // Generate a wrong answer that's close to the correct one
+                    let wrongAnswer;
+                    const randomOffset = Math.floor(Math.random() * 3) + 1;
+                    
+                    if (Math.random() < 0.5) {
+                        wrongAnswer = correctAnswer + randomOffset;
+                    } else {
+                        wrongAnswer = Math.max(1, correctAnswer - randomOffset);
+                    }
+                    
+                    // Make sure we don't add duplicates
+                    if (!answerOptions.includes(wrongAnswer)) {
+                        answerOptions.push(wrongAnswer);
+                    }
+                }
+                
+                // Shuffle answers
+                shuffleArray(answerOptions);
+                
+                // Create answer buttons
+                const answersContainer = document.getElementById('divide-answers');
+                answersContainer.innerHTML = '';
+                
+                answerOptions.forEach(answer => {
+                    const button = document.createElement('button');
+                    button.classList.add('answer-btn');
+                    button.textContent = answer;
+                    
+                    button.addEventListener('click', () => {
+                        checkDivisionAnswer(answer);
+                    });
+                    
+                    answersContainer.appendChild(button);
+                });
+                
+                // Clear previous result
+                document.getElementById('divide-result').textContent = '';
+                document.getElementById('divide-result').className = 'game-result';
+            };
+
+            // Check multiplication answer
+            const checkMultiplicationAnswer = (userAnswer) => {
+                const correctAnswer = gameState.multiply.correctAnswer;
+                const resultElement = document.getElementById('multiply-result');
+                
+                if (userAnswer === correctAnswer) {
+                    resultElement.textContent = 'Brawo! Poprawna odpowiedź!';
+                    resultElement.className = 'game-result correct';
+                    
+                    // Add points based on difficulty
+                    let points;
+                    switch (gameState.multiply.difficulty) {
+                        case 'easy':
+                            points = 5;
+                            break;
+                        case 'medium':
+                            points = 10;
+                            break;
+                        case 'hard':
+                            points = 15;
+                            break;
+                    }
+                    
+                    gameState.multiply.points += points;
+                    gameState.multiply.correct += 1;
+                    
+                    // Update UI
+                    document.getElementById('multiply-points').textContent = gameState.multiply.points;
+                    document.getElementById('multiply-correct').textContent = gameState.multiply.correct;
+                    
+                    // Generate new question after a short delay
+                    setTimeout(generateMultiplicationQuestion, 1500);
+                } else {
+                    resultElement.textContent = `Niestety, to nie jest poprawna odpowiedź. Spróbuj ponownie!`;
+                    resultElement.className = 'game-result wrong';
+                    
+                    gameState.multiply.wrong += 1;
+                    document.getElementById('multiply-wrong').textContent = gameState.multiply.wrong;
+                }
+                
+                // Save game state
+                saveGameState();
+            };
+
+            // Check division answer
+            const checkDivisionAnswer = (userAnswer) => {
+                const correctAnswer = gameState.divide.correctAnswer;
+                const resultElement = document.getElementById('divide-result');
+                
+                if (userAnswer === correctAnswer) {
+                    resultElement.textContent = 'Brawo! Poprawna odpowiedź!';
+                    resultElement.className = 'game-result correct';
+                    
+                    // Add points based on difficulty
+                    let points;
+                    switch (gameState.divide.difficulty) {
+                        case 'easy':
+                            points = 5;
+                            break;
+                        case 'medium':
+                            points = 10;
+                            break;
+                        case 'hard':
+                            points = 15;
+                            break;
+                    }
+                    
+                    gameState.divide.points += points;
+                    gameState.divide.correct += 1;
+                    
+                    // Update UI
+                    document.getElementById('divide-points').textContent = gameState.divide.points;
+                    document.getElementById('divide-correct').textContent = gameState.divide.correct;
+                    
+                    // Generate new question after a short delay
+                    setTimeout(generateDivisionQuestion, 1500);
+                } else {
+                    resultElement.textContent = `Niestety, to nie jest poprawna odpowiedź. Spróbuj ponownie!`;
+                    resultElement.className = 'game-result wrong';
+                    
+                    gameState.divide.wrong += 1;
+                    document.getElementById('divide-wrong').textContent = gameState.divide.wrong;
+                }
+                
+                // Save game state
+                saveGameState();
+            };
+
+            // Fisher-Yates shuffle algorithm
+            const shuffleArray = (array) => {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+                return array;
+            };
+
+            // Set up new question buttons
+            document.getElementById('multiply-new-btn').addEventListener('click', generateMultiplicationQuestion);
+            document.getElementById('divide-new-btn').addEventListener('click', generateDivisionQuestion);
+
+            // Load saved game state
+            loadGameState();
+        });
+    </script>
+</body>
+</html>
